@@ -2,11 +2,13 @@ const express = require('express');
 const postController = require('../controllers/post.controller');
 
 const postRouter = express.Router();
+const activeController = require('../controllers/active.controller');
 
 postRouter.post('/', (req,res) => {
-   const { name, title, image, content } = req.body;
-   
-   postController.create({ name, title, image, content })
+   const { name, title, image, content , author} = req.body;
+   activeController.create({})
+   .then(activeCreated => {
+      postController.create({ name, title, image, content , author, active : activeCreated._id })
       .then(postCreated => {
          res.json({
             success: true,
@@ -17,8 +19,13 @@ postRouter.post('/', (req,res) => {
          res.json({
             success: false,
             data: error
-         })
+         }) 
       })
+   })
+   .catch(err => {
+      console.log(err);
+   })
+   
 })
 // read all
 postRouter.get('/', (req,res) => {

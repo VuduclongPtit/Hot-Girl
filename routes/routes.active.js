@@ -52,8 +52,7 @@ activeRouter.put('/:_id', (req,res) => {
             data: error
          })
       })
-})
-
+});
 
 
 module.exports = activeRouter;

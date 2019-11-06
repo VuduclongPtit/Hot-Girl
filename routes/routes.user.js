@@ -43,8 +43,9 @@ userRouter.get('/', (req,res) => {
 
 //get one
 userRouter.get('/:_id', (req,res) => {
-   const {_id} = req.params
-   userController.getById({_id})
+   const _id = req.params.id;
+   // console.log(_id)
+   userController.getById(_id)
       .then(user => {
          res.json({
             success: true,
@@ -61,7 +62,7 @@ userRouter.get('/:_id', (req,res) => {
 //Update
 
 userRouter.put('/:_id', (req,res) => {
-   const { _id } = req.params
+   const { _id } = req.params.id
    const { name, password, email } = req.body
    userController.update({_id}, { name, password, email } )
       .then(userUpdated => {
