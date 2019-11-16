@@ -2,16 +2,21 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const path = require('path');
 
 const userRouter = require('./routes/routes.user');
 const postRouter = require('./routes/routes.post');
 const activeRouter  = require('./routes/routes.active');
 const authRouter = require('./routes/routes.auth');
+const loginRouter = require('./routes/routes.login')
 
 const app = express();
 const port = 8080;
+
+app.use(express.static('views'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "views")));
 
 app.use(session({
    secret: "dviue344qhw832ry2e",
@@ -32,10 +37,15 @@ mongoose.connect('mongodb://localhost/hotgirl',
       else console.log("ok")
    }
 );
+
 app.use((req, res, next) => {
-  console.log(req.sessionID, req.session);
+  console.log(req.sessionID)
+  console.log(req.session);
   next(); 
 })
+
+
+app.use('/', loginRouter);
 
 app.use('/api/users', userRouter);
 app.use('/api/post', postRouter);

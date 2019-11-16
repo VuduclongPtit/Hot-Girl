@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon --inspect app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -11,9 +12,12 @@
   "dependencies": {
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "mongoose": "^5.7.7",
-    "nodemon": "^1.19.4"
+    "nodemon": "^1.19.4",
+    "path": "^0.12.7",
+    "pug": "^2.0.4"
   }
 }

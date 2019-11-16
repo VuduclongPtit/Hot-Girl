@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 // sign-in
 
 authRouter.post('/signin', (req, res) => {
-   const {username , password} = req.body;
+   const {username,password} = req.body;
    userController.getOne({username})
       .then(userFounded => {
          if(!userFounded || !userFounded._id){
@@ -23,7 +23,11 @@ authRouter.post('/signin', (req, res) => {
                }
                res.json({
                   success: true,
-                  data: userFounded.name
+                  data: {
+                     id: userFounded._id,
+                     name: userFounded.name,
+                     username: userFounded.username,
+                  }
                })
             }
             else {
@@ -70,5 +74,6 @@ authRouter.get('/check', (req,res) => {
       })
    }
 })
+
 
 module.exports = authRouter;
